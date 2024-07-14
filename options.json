@@ -1,0 +1,1 @@
+{"py/object": "core.models.options_model.OptionsModel", "model": "stabilityai/stable-diffusion-2-1", "num_inference_steps": 20, "extended_prompt": "film, professional, highly detailed", "guidance_scale": 20.0, "cuda": true}

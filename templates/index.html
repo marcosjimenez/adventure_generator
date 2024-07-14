@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="viewportImg" src="data:image/jpeg;base64,{{ conversation.current_image }}" alt="Logo">
+        </div>
+        <div class="col-md-6">
+            <form class="form" action="{{ url_for('user_input') }}" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    {% for key in conversation.steps %}
+                      <p>{{ key }}</p>
+                  {% endfor %}
+                </div>
+                  <div class="mb-3">
+                    <label for="user_input_text" class="form-label">Your next move:</label>
+                    <textarea class="form-control" id="user_input_text" name="user_input_text" rows="3">{{ conversation.current_status }}</textarea>
+                  </div>
+                <button type="submit" class="btn btn-primary">Go</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

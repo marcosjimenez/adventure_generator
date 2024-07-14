@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}Options{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-6">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">AI Options</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Game Options</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <div>
+                  <br/>
+                </div>
+                  <form method="post">
+                    <div class="input-group mb-3">
+                      <label class="input-group-text" for="selected_model">Model</label>
+                      <select class="form-select" id="selected_model" name="selected_model">
+                        {% for key in options.available_models  %}
+                          <option {{ options.is_model_selected(key) }}  value="{{ key }}">{{ key }}</option>
+                        {% endfor %}                           
+                      </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="lblInferenceSteps">Total inference steps:</span>
+                        <input 
+                          type="number"
+                          class="form-control"
+                          id="selected_inference_steps"
+                          name="selected_inference_steps"
+                          aria-describedby="lblInferenceSteps"
+                          value={{ options.num_inference_steps }}>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="lblguidancescale">Guidance scale:</span>
+                      <input 
+                        type="number"
+                        class="form-control"
+                        id="selected_guidance_scale"
+                        name="selected_guidance_scale"
+                        aria-describedby="lblguidancescale"
+                        value={{ options.guidance_scale }}>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="lblExtendedPrompt">Extended prompt:</span>
+                      <input 
+                        type="text"
+                        class="form-control"
+                        id="selected_extended_prompt"
+                        name="selected_extended_prompt"
+                        aria-describedby="lblExtendedPrompt"
+                        value="{{ options.extended_prompt }}">
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="selected_cuda" {% if options.cuda %} checked {% endif %}>
+                    <label class="form-check-label" for="selected_cuda">
+                      Use CUDA
+                    </label>
+                  </div>
+                    <input type="submit" value="Save" class="btn btn-primary pull-right">
+                    <a href={{ url_for('index') }} class="btn btn-primary pull-right">Cancel</a>
+                  </form>
+              </div>
+              <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}
